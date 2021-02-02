@@ -1,11 +1,13 @@
 package com.study.springboot_board.domain;
 
 import lombok.Getter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 @Entity
 public class Board {
 
@@ -15,15 +17,26 @@ public class Board {
     private Long id;
 
     @Column(length = 50, nullable = false)
-    private String title;
+    private String boardTitle;
 
     @Lob
-    private String content;
+    private String boardContent;
 
-    private LocalDateTime createdDate;
+    @Column
+    private String userName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    //작성시간
+//    private LocalDateTime createdDate;
 
+    //로그인 후 글쓴이
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private User user;
+
+    @Builder
+    public Board(String boardTitle, String boardContent, String userName) {
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+        this.userName = userName;
+    }
 }
