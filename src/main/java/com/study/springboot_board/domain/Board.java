@@ -16,10 +16,11 @@ public class Board {
     @Column(name = "board_id")
     private Long id;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50)
     private String boardTitle;
 
     @Lob
+    @Column
     private String boardContent;
 
     @Column
@@ -38,5 +39,10 @@ public class Board {
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.userName = userName;
+    }
+
+    public void update(String boardTitle, String boardContent) {
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
     }
 }
