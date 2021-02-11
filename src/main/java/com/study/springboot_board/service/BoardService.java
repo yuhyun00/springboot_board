@@ -30,10 +30,10 @@ public class BoardService {
 
     /** 게시글 - 상세 조회 */
     @Transactional(readOnly = true)
-    public BoardResponseDto findById(Long id) {
+    public BoardResponseDto findById(Long boardId) {
 
-        Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalAccessError("[boardId=" + id + "] 해당 게시글이 존재하지 않습니다."));
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalAccessError("[boardId=" + boardId + "] 해당 게시글이 존재하지 않습니다."));
 
         return new BoardResponseDto(board);
     }
@@ -43,18 +43,18 @@ public class BoardService {
     public Long save(BoardSaveRequestDto boardSaveRequestDto) {
 
         return boardRepository.save(boardSaveRequestDto.toEntity())
-                .getId();
+                .getBoardId();
     }
 
     /** 게시글 - 수정 */
     @Transactional
-    public Long update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
+    public Long update(Long boardId, BoardUpdateRequestDto boardUpdateRequestDto) {
 
-        Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalAccessError("[boardId=" + id + "] 해당 게시글이 존재하지 않습니다."));
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalAccessError("[boardId=" + boardId + "] 해당 게시글이 존재하지 않습니다."));
 
         board.update(boardUpdateRequestDto.getBoardTitle(), boardUpdateRequestDto.getBoardContent());
 
-        return id;
+        return boardId;
     }
 }

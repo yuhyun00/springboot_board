@@ -13,8 +13,8 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "board_id")
-    private Long id;
+    @Column
+    private Long boardId;
 
     @Column(length = 50)
     private String boardTitle;
