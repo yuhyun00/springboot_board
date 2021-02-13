@@ -18,7 +18,7 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    /** 게시글 - 목록 조회 */
+    //게시글 목록조회
     @Transactional(readOnly = true)
     public List<BoardResponseDto> findAll() {
 
@@ -28,8 +28,8 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
-    /** 게시글 - 상세 조회 */
-    @Transactional(readOnly = true)
+    //게시글 상세조회회
+   @Transactional(readOnly = true)
     public BoardResponseDto findById(Long boardId) {
 
         Board board = boardRepository.findById(boardId)
@@ -38,7 +38,7 @@ public class BoardService {
         return new BoardResponseDto(board);
     }
 
-    /** 게시글 - 등록 */
+    //게시글 등록
     @Transactional
     public Long save(BoardSaveRequestDto boardSaveRequestDto) {
 
@@ -46,7 +46,7 @@ public class BoardService {
                 .getBoardId();
     }
 
-    /** 게시글 - 수정 */
+    //게시글 수정
     @Transactional
     public Long update(Long boardId, BoardUpdateRequestDto boardUpdateRequestDto) {
 
@@ -56,5 +56,15 @@ public class BoardService {
         board.update(boardUpdateRequestDto.getBoardTitle(), boardUpdateRequestDto.getBoardContent());
 
         return boardId;
+    }
+
+    //게시글 삭제
+    @Transactional
+    public void delete(Long boardId) {
+
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalAccessError("[boardId=" + boardId + "] 해당 게시글이 존재하지 않습니다."));
+
+        boardRepository.delete(board);
     }
 }

@@ -22,6 +22,7 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    //게시글 목록조회
     @GetMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<BoardResponseDto>> findAll() {
 
@@ -30,6 +31,7 @@ public class BoardController {
         return new ResponseEntity<List<BoardResponseDto>>(boardResponseDtoList, HttpStatus.OK);
     }
 
+    //게시글 상세조회
     @GetMapping(value = "/{boardId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<BoardResponseDto> findById(@PathVariable("boardId") Long boardId) {
 
@@ -38,7 +40,8 @@ public class BoardController {
         return new ResponseEntity<BoardResponseDto>(boardResponseDto, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/create", produces = {MediaType.APPLICATION_JSON_VALUE})
+    //게시글 등록
+    @PostMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Long> save(@RequestBody BoardSaveRequestDto boardSaveRequestDto) {
 
         Long savedBoardId = boardService.save(boardSaveRequestDto);
@@ -46,12 +49,22 @@ public class BoardController {
         return new ResponseEntity<Long>(savedBoardId, HttpStatus.CREATED);
     }
 
+    //게시글 수정
     @PutMapping(value = "/{boardId}", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<Long> update(@PathVariable("boardId") Long boardId, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
 
         Long updatedboardSeq = boardService.update(boardId, boardUpdateRequestDto);
 
         return new ResponseEntity<Long>(updatedboardSeq, HttpStatus.CREATED);
+    }
+
+    //게시글 삭제
+    @DeleteMapping(value = "/{boardId}", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<Long> delete(@PathVariable("boardId") Long boardId) {
+
+        boardService.delete(boardId);
+
+        return new ResponseEntity<Long>(boardId, HttpStatus.NO_CONTENT);
     }
 }
 
