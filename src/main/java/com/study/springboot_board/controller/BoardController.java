@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-
 import com.study.springboot_board.dto.BoardSaveRequestDto;
 import com.study.springboot_board.dto.BoardResponseDto;
 import com.study.springboot_board.service.BoardService;

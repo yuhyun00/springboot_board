@@ -28,7 +28,7 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
-    //게시글 상세조회회
+    //게시글 상세조회
    @Transactional(readOnly = true)
     public BoardResponseDto findById(Long boardId) {
 

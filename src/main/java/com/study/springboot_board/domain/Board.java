@@ -16,14 +16,14 @@ public class Board {
     @Column
     private Long boardId;
 
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String boardTitle;
 
     @Lob
-    @Column
+    @Column(nullable = false)
     private String boardContent;
 
-    @Column
+    @Column(length = 20, nullable = false)
     private String userName;
 
     //작성시간
